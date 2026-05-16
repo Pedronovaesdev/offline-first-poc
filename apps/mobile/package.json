@@ -4,5 +4,8 @@
     "private": true,
     "scripts": {
         "dev": "echo \"mobile dev - configurarna etapa do expo\""
+    },
+    "dependencies": {
+        "@nozbe/watermelondb": "^0.28.0"
     }
 }
