@@ -1,0 +1,8 @@
+{
+    "name": "@offline-poc/server",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "echo \"server dev - configuracao do servidor\""
+    }
+}
