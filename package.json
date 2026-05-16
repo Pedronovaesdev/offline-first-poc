@@ -5,11 +5,14 @@
     "workspaces": [
         "packages/*",
         "apps/*",
-        "server*"
+        "server"
     ],
     "scripts": {
         "dev": "turbo run dev",
         "build": "turbo run build",
         "lint": "turbo run lint"
+    }, 
+    "dependencies": {
+        "turbo": "^2.4.2"
     }
 }

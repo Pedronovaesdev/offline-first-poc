@@ -2,7 +2,8 @@
     "name": "@offline-poc/shared",
     "version": "0.0.0",
     "private": true,
+    "main": "src/index.ts",
     "scripts": {
-        "lint": "echo \"shared lint - configuracao do lint\""
+        "build": "echo \"shared build - configurar depois\""
     }
 }
