@@ -1,0 +1,14 @@
+{
+    "expo": {
+      "name": "Inspecao Offline",
+      "slug": "inspecao-offline",
+      "version": "1.0.0",
+      "scheme": "inspecao-offline",
+      "android": {
+        "package": "com.offlinepoc.inspecao"
+      },
+      "ios": {
+        "bundleIdentifier": "com.offlinepoc.inspecao"
+      }
+    }
+  }

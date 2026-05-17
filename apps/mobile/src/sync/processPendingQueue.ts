@@ -1,6 +1,10 @@
-import { Q } from '@nozbe/watermelondb'; // operador de query
-import { database } from '../database';
-import { Inspecao } from '../database/models/Inspecao';
+import {
+    getPendingInspecoes,
+    updateInspecao,
+  } from '../storage/inspecaoStorage';
+import type { InspecaoRecord } from '../storage/inspecaoTypes';
+import { loadInspecoes } from '../storage/inspecaoStorage';
+
 
 const API_URL = 'http://localhost:3000';
 
@@ -16,7 +20,7 @@ type SyncPayload = {
 };
 
 // Converte o modelo do banco de dados para o payload da API
-function toSyncPayload(inspecao: Inspecao): SyncPayload {
+function toSyncPayload(inspecao: InspecaoRecord): SyncPayload {
     return {
         id: inspecao.id,
         nome_imovel: inspecao.nomeImovel,
@@ -30,10 +34,8 @@ function toSyncPayload(inspecao: Inspecao): SyncPayload {
 }
 
 // buscar pendentes no sqllite
-async function fetchPendingInspections(): Promise<Inspecao[]> {
-    const collection = database.get<Inspecao>('inspecoes');
-
-    return collection.query(Q.where('status_sync', 'pendente')).fetch();
+async function fetchPendingInspections(): Promise<InspecaoRecord[]> {
+    return getPendingInspecoes();
 }
 
 type SyncResponse = {
@@ -59,17 +61,17 @@ async function sendToServer(payload: SyncPayload[]): Promise<SyncResponse> {
 
 // Salvar Resposta no WaterMelonDB
 async function applySyncResult(result: SyncResponse ): Promise<void> {
-    const collection = database.get<Inspecao>('inspecoes');
 
-    await database.write(async () => {
-        for (const id of result.sucesso) {
-            const inspecao = await collection.find(id);
-            await inspecao.update((record) => {
-                record.statusSync = 'sincronizado';
-                record.syncedAt = Date.now();
-            })
-        }
-    })
+    for (const id of result.sucesso) {
+        const list = await loadInspecoes(); // ou carregar uma vez fora do loop (otimização depois)
+        const item = list.find((i) => i.id === id);
+        if (!item) continue;
+        await updateInspecao({
+          ...item,
+          statusSync: 'sincronizado',
+          syncedAt: Date.now(),
+        });
+      }
     
 }
 
