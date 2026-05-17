@@ -16,3 +16,5 @@ node_modules
 .expo/
 dist/
 *.log
+
+db-data/

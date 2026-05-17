@@ -6,7 +6,7 @@ import type { InspecaoRecord } from '../storage/inspecaoTypes';
 import { loadInspecoes } from '../storage/inspecaoStorage';
 
 
-const API_URL = 'http://localhost:3000';
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 type SyncPayload = {
     id: string;

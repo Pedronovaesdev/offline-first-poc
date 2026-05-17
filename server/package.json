@@ -3,6 +3,18 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "echo \"server dev - configuracao do servidor\""
+        "dev": "tsx watch src/index.ts"
+    },
+    "dependencies": {
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "pg": "^8.20.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.8.0",
+        "@types/pg": "^8.20.0",
+        "tsx": "^4.22.1",
+        "typescript": "^6.0.3"
     }
 }
