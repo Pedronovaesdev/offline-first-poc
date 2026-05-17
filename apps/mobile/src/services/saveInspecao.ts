@@ -1,5 +1,6 @@
 import { addInspecao } from '../storage/inspecaoStorage';
 import type { InspecaoRecord } from '../storage/inspecaoTypes';
+import * as Crypto from 'expo-crypto';
 
 export type InspecaoFormData = {
     nomeImovel: string;
@@ -28,7 +29,7 @@ export async function saveInspecao(form: InspecaoFormData): Promise<void> {
     const area = validateForm(form);
 
     const nova: InspecaoRecord = {
-        id: crypto.randomUUID(),
+        id: Crypto.randomUUID(),
         nomeImovel: form.nomeImovel.trim(),
         endereco: form.endereco.trim(),
         areaM2: area,

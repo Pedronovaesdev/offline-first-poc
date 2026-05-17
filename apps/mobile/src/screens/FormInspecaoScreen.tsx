@@ -11,6 +11,11 @@ import {
   } from 'react-native';
   import { saveInspecao, InspecaoFormData } from '../services/saveInspecao';
 
+
+type Props = {
+    onSaved?: () => void;
+};
+
 const emptyForm: InspecaoFormData = {
     nomeImovel: '',
     endereco: '',
@@ -18,7 +23,7 @@ const emptyForm: InspecaoFormData = {
     observacoes: '',
 }
 
-export function FormInspecaoScreen() {
+export function FormInspecaoScreen({ onSaved }: Props) {
     const [form, setForm] = useState<InspecaoFormData>(emptyForm);
     const [saving, setSaving] = useState(false);
 
@@ -36,6 +41,7 @@ export function FormInspecaoScreen() {
             setSaving(true);
             await saveInspecao(form);
             setForm(emptyForm)
+            onSaved?.();
             Alert.alert('Sucesso', 'Informações salvas com sucesso');
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Erro ao salvar.';
