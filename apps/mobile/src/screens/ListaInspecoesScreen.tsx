@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   RefreshControl,
+  Button,
 } from 'react-native';
 import { loadInspecoes } from '../storage/inspecaoStorage';
 import type { InspecaoRecord } from '../storage/inspecaoTypes';
@@ -12,9 +13,12 @@ import { StatusBadge } from '../components/StatusBadge'
 
 type Props = {
     refreshKey?: number;
-  };
+    onOpenAnexos?: (inspecao: InspecaoRecord) => void;
+};
+
+
   
-  export function ListaInspecoesScreen({ refreshKey = 0 }: Props)  {
+  export function ListaInspecoesScreen({ refreshKey = 0, onOpenAnexos }: Props)  {
     const [inspecoes, setInspecoes] = useState<InspecaoRecord[]>([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -53,6 +57,12 @@ type Props = {
             <Text style={styles.meta}>{item.endereco}</Text>
             <Text style={styles.meta}>{item.areaM2} m²</Text>
             <StatusBadge status={item.statusSync} />
+            {onOpenAnexos ? (
+                <Button
+                  title="Anexos"
+                  onPress={() => onOpenAnexos(item)}
+                />
+              ) : null}
           </View>
         )}
       />

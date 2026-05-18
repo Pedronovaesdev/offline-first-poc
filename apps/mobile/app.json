@@ -9,6 +9,15 @@
       },
       "ios": {
         "bundleIdentifier": "com.offlinepoc.inspecao"
-      }
+      },
+      "plugins": [
+          [
+            "expo-image-picker",
+            {
+              "cameraPermission": "Permitir uso da câmera para fotos da inspeção.",
+              "photosPermission": "Permitir acesso à galeria para anexos da inspeção."
+            }
+          ]
+        ]
     }
   }
