@@ -4,6 +4,7 @@ import path from 'path';
 import { pool } from './db';
 import { migrate } from './migrations/migrate';
 import { inspecaoRouter } from './routes/inspecoes';
+import { anexoRouter } from './routes/anexos';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -11,6 +12,11 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
+
+app.use((req, _res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    next();
+});
 
 // saúde da aplicação
 
@@ -25,6 +31,7 @@ app.get('/health', async (_req, res) => {
 })
 
 app.use('/inspecoes', inspecaoRouter);
+app.use('/anexos', anexoRouter);
 
 
 async function bootstrap(){

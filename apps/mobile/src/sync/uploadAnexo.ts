@@ -29,7 +29,7 @@ export function uploadAnexo(
 
         // resposta da api
         xhr.onload = () => {
-            if (xhr.status === 200 && xhr.status < 300) {
+            if (xhr.status >= 200 && xhr.status < 300) {
                 onProgress(100);
                 resolve();
                 return;

@@ -8,6 +8,10 @@ export const inspecaoRouter = Router();
 inspecaoRouter.post('/sync', async (req, res) => {
     const body = req.body;
 
+    console.log('[sync] Requisição recebida:', {
+        quantidade: Array.isArray(body) ? body.length : 'payload inválido',
+    });
+
     if(!Array.isArray(body)) {
         return res.status(400).json({ok: false, error: 'Payload deve ser um array'});
     } 
