@@ -8,11 +8,15 @@ import { ListaInspecoesScreen } from './src/screens/ListaInspecoesScreen';
 import { useState } from 'react';
 
 export default function App() {
-    useNetworkSync();
+    const { runSync } = useNetworkSync();
     const [listVersion, setListVersion] = useState(0);
-    function handleSaved() {
+
+    async function handleSaved(){
+      setListVersion((v) => v + 1);
+      await runSync();
       setListVersion((v) => v + 1);
     }
+    
     return (
       <View style={{ flex: 1 }}>
         <FormInspecaoScreen onSaved={handleSaved} />
